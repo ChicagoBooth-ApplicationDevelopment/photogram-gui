@@ -5,7 +5,6 @@
   </ul>
 </nav> %>
 
-
 <h1><%=@the_user.username%></h1>
 
 <dl>
@@ -15,7 +14,14 @@
 
   <dt>Edit user</dt>
 
-  <dd>form goes here</dd>
+  <dd>
+    <form action="/update_user/<%=@the_user.username%>">
+    <label for="update_user">Username</label>
+    <input id="update_user" name="query_user" placeholder="Enter a username..." value="<%=@the_user.username%>">
+
+    <button>Update user</button>
+    </form>
+  </dd>
 
 </dl>
 

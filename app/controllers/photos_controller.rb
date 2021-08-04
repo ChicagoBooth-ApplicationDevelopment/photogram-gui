@@ -52,4 +52,24 @@ class PhotosController < ApplicationController
 
     redirect_to("/photos/" + a_new_photo.id.to_s)
   end
+
+  def update
+    #Parameters: {"query_image"=>"https://www.chicagobooth.edu/-/media/project/chicago-booth/mba/chicago-booth-mba-program.jpg?cx=0.61&cy=0.52&cw=940&ch=749&hash=F4E774D1D562BB544613EFFFA393D201", "query_caption"=>"test2 updated", "modify_id"=>"953"}
+    the_id = params.fetch("modify_id")
+    matching_photos = Photo.where({ :id => the_id})
+    the_photo = matching_photos.at(0)
+
+    input_image = params.fetch("query_image")
+    input_caption = params.fetch("query_caption")
+    #in update function, not allowing user to change id -> can omit input_owner_id or use fallback option below (Hash chapter):
+    #input_owner_id = params.fetch("query_owner_id", "None provided")
+
+    the_photo.image = input_image
+    the_photo.caption = input_caption
+
+    the_photo.save
+
+    #render({ :template => "photo_templates/update.html.erb"})
+    redirect_to("/photos/" + the_photo.id.to_s)
+  end
 end

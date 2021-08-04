@@ -22,4 +22,34 @@ class UsersController < ApplicationController
     render({ :template => "user_templates/show.html.erb"})
     # end
   end
+
+  def create
+    #Parameters: {"query_user"=>"susie"}
+
+    input_user = params.fetch("query_user")
+
+    a_new_user = User.new
+    a_new_user.username = input_user
+
+    a_new_user.save
+
+    #render({ :template => "user_templates/create.html.erb"})
+    redirect_to("/users/" + a_new_user.username)
+  end
+
+  def update
+    #Parameters: {"path_username"=>"susie"}
+    the_username = params.fetch("modify_user")
+    matching_user = User.where({ :username => the_username})
+    the_user = matching_user.at(0)
+
+    input_user = params.fetch("query_user")
+
+    the_user.username = input_user
+
+    the_user.save
+
+    #render({ :template => "user_templates/update.html.erb"})
+    redirect_to("/users/" + the_user.username.to_s)
+  end
 end
