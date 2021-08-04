@@ -20,4 +20,6 @@ Rails.application.routes.draw do
 
   get("/update_user/:modify_user", { :controller => "users", :action => "update"})
 
+  get("/insert_comment", { :controller => "photos", :action => "add_comment"})
+
 end
